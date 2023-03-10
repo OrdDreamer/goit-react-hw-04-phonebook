@@ -1,0 +1,38 @@
+.item {
+  margin: 0;
+  padding: 5px 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item:nth-child(odd) {
+  background-color: #f3f6f9;
+}
+
+.info {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px
+}
+
+.name {
+  font-size: 18px;
+}
+
+.number {
+  /*color: #1669bb;*/
+  padding-left: 10px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.deleteButton {
+  border: 1px solid #cfd6e0;
+  border-radius: 0;
+  outline-color: #b3b8c2;
+  padding: 5px 15px;
+  background-color: transparent;
+}
