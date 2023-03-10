@@ -1,6 +1,6 @@
 import styles from './app.module.css';
 import Section from './Section/Section';
-import PhonebookForm from './PhonebookForm/PhonebookForm';
+import { PhonebookForm } from './PhonebookForm/PhonebookForm';
 import ContactsList from './ContactsList/ContactsList';
 import Filter from './Filter/Filter';
 import { useEffect, useState } from 'react';
@@ -8,13 +8,20 @@ import { useEffect, useState } from 'react';
 export const App = () => {
 
   const [contacts, setContacts] = useState(() => {
-    const localContacts = JSON.parse(localStorage.getItem('contacts'));
+    let localContacts;
+    try {
+      console.log(JSON.parse(localStorage.getItem('contacts')));
+      localContacts = JSON.parse(localStorage.getItem('contacts'));
+    } catch (e) {
+      console.log(e.message)
+    }
     return localContacts?.length ? localContacts : [];
   });
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('contacts', contacts);
+    console.log("setItem")
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
   const addContact = ({ name: n, number }) => {
@@ -25,14 +32,12 @@ export const App = () => {
       return false;
     }
 
-    setContacts((prevState) => [
-      {
-        name,
-        number,
-        id: String(+(new Date())) + Math.round(Math.random() * 100),
-      },
-      ...prevState,
-    ]);
+    const newContact = {
+      name,
+      number,
+      id: String(+(new Date())) + Math.round(Math.random() * 100),
+    };
+    setContacts((prevState) => [newContact, ...prevState]);
     return true;
   };
 
